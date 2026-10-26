@@ -1,5 +1,5 @@
 from .matrix_object import MatrixObject
-from ..my_types import Color
+from ..types.color import Color
 
 
 class Rect(MatrixObject):

@@ -1,5 +1,5 @@
 from copy import deepcopy
-from ..my_types import Optional, Matrix
+from ..types.matrix import Optional, Matrix
 
 
 class MatrixObject:

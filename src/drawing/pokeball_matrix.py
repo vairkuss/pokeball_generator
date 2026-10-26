@@ -1,7 +1,7 @@
-from ..my_types import Color
 from .matrix_object import MatrixObject
 from .circle import Circle
 from .rect import Rect
+from ..types.color import Color
 
 
 class PokeballMatrix(MatrixObject):
@@ -18,8 +18,9 @@ class PokeballMatrix(MatrixObject):
         top = Rect(d, r, RED)
         step1 = step0.paint(top.data)
 
-        middle = Rect(d, d / 6, WHITE)
-        step2 = step1.paint(middle.data, 0, r / 6)
+        middle = Rect(d, d / 7, BLACK)
+        step2 = step1.paint(middle.data, 0, r / 7)
 
-        button = Circle(r /, BLACK)
+        button_ring = Circle(d / 4, WHITE)
+        step3 = step2.paint(button_ring.data, r / 4, r / 4)
 
