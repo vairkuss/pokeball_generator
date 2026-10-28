@@ -1,4 +1,5 @@
 from typing import Optional
+from argparser import Namespace
 
 
 class PokeballGenerator:
@@ -8,8 +9,9 @@ class PokeballGenerator:
     """
 
     @staticmethod
-    def generate(x: Optional[int], y: Optional[int], r: Optional[int]) -> bytes:
+    def generate(argv: Namespace, data: Optional[bytes] = None) -> bytes:
         ...
+        
 
     @staticmethod
     def pokerush() -> bytes:

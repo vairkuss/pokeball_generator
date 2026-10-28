@@ -5,6 +5,10 @@ from ..types.color import Color
 
 
 class PokeballMatrix(MatrixObject):
+    """
+    a class that represents a 2D matrix of colors (RGB tuples) in the shape of a pokeball,
+    it provides methods to manipulate and to convert it to and from binary data to use in bitmaps
+    """
 
     def __init__(self, w, h, r):
         super().__init__(w, h)
@@ -21,6 +25,11 @@ class PokeballMatrix(MatrixObject):
         middle = Rect(d, d / 7, BLACK)
         step2 = step1.paint(middle.data, 0, r / 7)
 
-        button_ring = Circle(d / 4, WHITE)
+        button_ring = Circle(d / 4, BLACK)
         step3 = step2.paint(button_ring.data, r / 4, r / 4)
+
+        button_ring = Circle(d / 3, WHITE)
+        step3 = step2.paint(button_ring.data, r / 3, r / 3)
+
+        self.data = step3
 

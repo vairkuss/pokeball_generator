@@ -1,5 +1,5 @@
 import os
-from ..classes.control.backupper import Backupper
+from src import Backupper
 
 
 print("Backupper:")
