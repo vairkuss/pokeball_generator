@@ -1,3 +1,3 @@
-import .drawing
-import .bitmap
-import .control
+from .drawing import *
+from .bitmap import *
+from .control import *
