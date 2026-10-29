@@ -89,7 +89,6 @@ class MatrixObject:
         return clone
     
 
-    @property
     def to_bytes(self, padding: int) -> bytes:
         """
         converts MatrixObject matrix to bitmap image data structure

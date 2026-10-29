@@ -25,3 +25,5 @@ options: Options = {
     "r": args.r,
     "pokerush": args.pokerush
 }
+
+# TODO: filter options values

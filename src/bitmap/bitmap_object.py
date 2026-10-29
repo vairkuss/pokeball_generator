@@ -1,5 +1,5 @@
 from typing import Optional
-from src import BitmapMeta, MatrixObject
+
 from src.types import Options
 
 
@@ -14,7 +14,6 @@ class BitmapObject:
         :param options: The options for the bitmap.
         """
         self.meta: BitmapMeta = BitmapMeta(data=data[0:54], options=options)
-        self.matrix: MatrixObject = MatrixObject.from_bytes(self.meta.w, self.meta.h, self.meta.padding, data[54:])
 
 
     def to_bytes(self) -> bytes:
@@ -23,4 +22,4 @@ class BitmapObject:
 
         :returns: raw bitmap data
         """
-        return self.meta.data + self.matrix.to_bytes(self.meta.padding)
+        return 

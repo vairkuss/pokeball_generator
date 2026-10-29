@@ -6,15 +6,16 @@ from src.types import Options
 
 class PokeballGenerator:
     """
-    a class, that generates a bitmap data with a pokeball on it,
+    generates a bitmap data with a pokeball on it
     or edits the existing file, if provided
     """
 
     @staticmethod
     def generate(options: Options, data: Optional[bytes] = None) -> MatrixObject:
         """
-        Generates a bitmap with a defined pokeball on it or edits existing bitmap data if provided
-
+        generates a bitmap with a single defined pokeball on it
+        or edits existing bitmap data, if provided
+        
         :param options: the options for the bitmap
         :param data: the existing bitmap data
         :returns: the new bitmap data with a defined pokeball on it
@@ -27,7 +28,8 @@ class PokeballGenerator:
     @staticmethod
     def pokerush(options: Options, data: Optional[bytes] = None) -> MatrixObject:
         """
-        Generates a bitmap with 100 random pokeballs on it or edits existing bitmap data if provided
+        generates a bitmap with 100 random pokeballs on it
+        or edits existing bitmap data, if provided
 
         :param options: the options for the bitmap
         :param data: the existing bitmap data

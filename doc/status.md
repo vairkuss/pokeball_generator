@@ -1,12 +1,13 @@
-| nr | stage | status |
-|--:|:--|:--|
-| 0 | planning | + |
-| 1 | different forms | + |
-| 2 | matrixes merging | + |
-| 3 | bitmap data reading | + |
-| 4 | bitmap data generation | + |
-| 5 | working with file system | + |
-| 6 | testing and debugging | + |
-| 7 | final review | + |
-| 8 | documentation and diagrams | + |
-| 9 | deployment | + |
+| NR | STAGE | STATUS |
+|--:|:--|:-:|
+| 0 | planning | ready |
+| 1 | simple forms | ready |
+| 2 | matrixes merging | ready |
+| 3 | bitmap data reading | ready |
+| 4 | bitmap data generation | ready |
+| 5 | working with file system | ready |
+| 6 | testing and debugging | ready |
+| 7 | final review | ready |
+| 8 | documentation | ready |
+| 9 | diagram | ready |
+| 10 | deployment | ready |
