@@ -14,5 +14,13 @@ class BitmapObject:
         :param data: The raw bitmap data.
         :param options: The options for the bitmap.
         """
-        self.meta: BitmapMeta = BitmapMeta(data=data, options=options)
+        self.meta: BitmapMeta = BitmapMeta(data=data[0:54], options=options)
         self.matrix: MatrixObject = MatrixObject.from_bitmap(self.meta.width, self.meta.height, self.meta.padding, data)
+
+    def to_bytes(self) -> bytes:
+        """
+        Converts the BitmapObject to raw bytes
+
+        :returns: raw bitmap data
+        """
+        return self.meta.data + self.matrix.to_bytes(self.meta.padding)

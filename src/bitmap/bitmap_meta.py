@@ -23,8 +23,11 @@ class BitmapMeta:
         else:
             self.w: int = options["w"]
             self.h: int = options["h"]
-            padding: int = (4 - ((self.w * 3) % 4)) % 4
-            self.size: int = (self.w + padding) * self.h
+        
+        self.padding: int = (4 - ((self.w * 3) % 4)) % 4
+
+        if file is None:
+            self.size: int = (self.w + self.padding) * self.h
             self.data: bytes = self.__to_bytes()
 
 

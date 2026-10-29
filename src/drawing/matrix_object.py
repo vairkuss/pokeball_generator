@@ -23,14 +23,20 @@ class MatrixObject:
         matrix: Matrix = []
         for row in range(h):
             row_entries: list[Color] = []
-            for col in range(len(data) - padding):
-                rgb = tuple(data[row * col * 3: row * col * 3 + 3])
+            for col in range(w):
+                offset: int = row * (w + padding) + col
+                rgb: Color = tuple(value for value in data[offset : offset + 3])
                 row_entries.append(rgb)
             matrix.append(row_entries)
         return MatrixObject(w, h, matrix)
 
 
     def __init__(self, w: int, h: int, data: Optional[Matrix] = None) -> None:
+        """
+        :param w: matrix width
+        :param h: matrix height
+        :param data: optional existing matrix data
+        """
         h = w if h is None else h
         self.data: Matrix = data if data is not None else [[[None] * w] * h]
 
@@ -61,7 +67,7 @@ class MatrixObject:
 
     def shadow(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
         """
-        paints the matrix on top of the current one, but only where the current one is None
+        paints the matrix on top of the current one, where there's a color
 
         :param matrix: a matrix to shadow on top of the current one
         :param x: x-coordinate of the top-left corner of the area to shadow
@@ -85,14 +91,13 @@ class MatrixObject:
     
 
     @property
-    def raw(self) -> bytes:
+    def to_bytes(self, padding: int) -> bytes:
         """
-        converts the matrix of MatrixObject to bytes, with padding
+        converts MatrixObject matrix to bitmap image data structure
         """
         data: bytearray = bytearray()
         for row in self.data:
             for color in row:
                 data.extend(color)
-            padding = (4 - len(row) % 4) % 4
             data.extend(b'\x00' * padding)
         return bytes(data)
