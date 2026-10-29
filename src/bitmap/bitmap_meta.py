@@ -8,11 +8,12 @@ class BitmapMeta:
     as a buffer with the metadata needed
     """
 
-    def __init__(self, file: Optional[bytes], options: Optional[Options]) -> None:
+    def __init__(self, options: Options, file: Optional[bytes] = None) -> None:
         """
         reads existing metadata or generates new
 
         :param file: optinally provided file's data
+        :param options: the options for the bitmap
         """
         if file is not None:
             self.size: int = int.from_bytes(file[2:6], "little")

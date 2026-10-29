@@ -1,12 +1,13 @@
 import os
 from typing import Optional
-from .src import argv, Backupper, PokeballGenerator
+from src import Backupper, PokeballGenerator
+from src.types import options
 
 
 data: Optional[bytes] = None
-if os.path.exists(argv.file):
-    with open(argv.file, "rb") as file:
+if os.path.exists(options["file"]):
+    with open(options["file"], "rb") as file:
         data = file.read()
-    Backupper.backup(argv.file, data)
+    Backupper.backup(options["file"], data)
 
-PokeballGenerator.generate(argv, data)
+PokeballGenerator.generate(options, data)

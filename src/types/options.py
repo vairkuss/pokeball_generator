@@ -1,1 +1,1 @@
-type Options = dict[str, int]
+type Options = dict[str, str | int | bool]
