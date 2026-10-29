@@ -1,17 +1,17 @@
 from copy import deepcopy
 from typing import Optional
-from ..types import Matrix, Color
+from src.types import Matrix, Color
 
 
 class MatrixObject:
     """
-    A class that represents a 2D matrix of colors (RGB tuples),
-    it provides methods to manipulate and to convert it to and
-    from binary data to use in bitmaps
+    represents a 2D matrix of colors (RGB tuples),
+    provides methods to manipulate and to convert it
+    to and from binary data to use in bitmaps
     """
 
     @staticmethod
-    def from_bitmap(w: int, h: int, padding: int, data: bytes) -> MatrixObject:
+    def from_bytes(w: int, h: int, padding: int, data: bytes) -> MatrixObject:
         """
         creates MatrixObject from the raw binary bitmap data
 
@@ -21,11 +21,11 @@ class MatrixObject:
         :param data: image bytes of file (normally, offset is 54 bytes)
         """
         matrix: Matrix = []
+        offset: int = w * 3 + padding
         for row in range(h):
-            row_entries: list[Color] = []
+            row_entries: list[Optional[Color]] = []
             for col in range(w):
-                offset: int = row * (w + padding) + col
-                rgb: Color = tuple(value for value in data[offset : offset + 3])
+                rgb: Color = tuple(value for value in data[row * offset : row * offset + 3])
                 row_entries.append(rgb)
             matrix.append(row_entries)
         return MatrixObject(w, h, matrix)
@@ -37,7 +37,6 @@ class MatrixObject:
         :param h: matrix height
         :param data: optional existing matrix data
         """
-        h = w if h is None else h
         self.data: Matrix = data if data is not None else [[[None] * w] * h]
 
 
@@ -95,9 +94,8 @@ class MatrixObject:
         """
         converts MatrixObject matrix to bitmap image data structure
         """
-        data: bytearray = bytearray()
+        data: bytes = b''
         for row in self.data:
-            for color in row:
-                data.extend(color)
-            data.extend(b'\x00' * padding)
+            string: bytes = b''.join(bytes(color) for color in row) + b'\x00' * padding
+            data = string + data
         return bytes(data)

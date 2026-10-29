@@ -1,14 +1,15 @@
-from .matrix_object import MatrixObject
-from ..types.color import Color
+from src import MatrixObject
+from src.types import Color
 
 
 class Circle(MatrixObject):
     """
-    a class that represents a 2D matrix of colors (RGB tuples) in the shape of a circle,
-    it provides methods to manipulate and to convert it to and from binary data to use in bitmaps
+    represents a 2D matrix of colors (RGB tuples) in the shape of a circle,
+    provides methods to manipulate and to convert it
+    to and from binary data to use in bitmaps
     """
 
-    def __init__(self, r, color: Color) -> None:
+    def __init__(self, r: int, color: Color) -> None:
         d = r * 2
         super().__init__(d, d)
         for y in range(d):

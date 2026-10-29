@@ -1,25 +1,25 @@
 from typing import Optional
-from ..drawing import MatrixObject
-from ..types import Options
-from .bitmap_meta import BitmapMeta
+from src import BitmapMeta, MatrixObject
+from src.types import Options
 
 
 class BitmapObject:
     """
-    BitmapObject represents a bitmap image and provides methods to manipulate and access its pixel data.
+    represents a bitmap image and provides methods to manipulate its pixel data
     """
 
-    def __init__(self, data: Optional[bytes], options: Optional[Options]) -> None:
+    def __init__(self, options: Options, data: Optional[bytes]) -> None:
         """
         :param data: The raw bitmap data.
         :param options: The options for the bitmap.
         """
         self.meta: BitmapMeta = BitmapMeta(data=data[0:54], options=options)
-        self.matrix: MatrixObject = MatrixObject.from_bitmap(self.meta.width, self.meta.height, self.meta.padding, data)
+        self.matrix: MatrixObject = MatrixObject.from_bytes(self.meta.w, self.meta.h, self.meta.padding, data[54:])
+
 
     def to_bytes(self) -> bytes:
         """
-        Converts the BitmapObject to raw bytes
+        converts the BitmapObject to raw bytes
 
         :returns: raw bitmap data
         """

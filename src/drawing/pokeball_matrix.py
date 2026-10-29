@@ -1,8 +1,5 @@
-from .matrix_object import MatrixObject
-from .circle import Circle
-from .rect import Rect
-from src.types.color import Color
-from src.types.matrix import Matrix
+from src import MatrixObject, Rect, Circle
+from src.types import Color
 
 
 class PokeballMatrix(MatrixObject):
@@ -11,7 +8,7 @@ class PokeballMatrix(MatrixObject):
     it provides methods to manipulate and to convert it to and from binary data to use in bitmaps
     """
 
-    def __init__(self, r):
+    def __init__(self, r: int):
         """
         :param r: the radius of the pokeball
         """
