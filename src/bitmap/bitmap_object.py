@@ -14,7 +14,5 @@ class BitmapObject:
         :param data: The raw bitmap data.
         :param options: The options for the bitmap.
         """
-        self.meta: BitmapMeta = BitmapMeta()
-        if options is not None:
-            self.meta.options = options
+        self.meta: BitmapMeta = BitmapMeta(options=options)
         self.matrix: MatrixObject = MatrixObject.from_bitmap(self.meta.width, self.meta.height, self.meta.padding, data)

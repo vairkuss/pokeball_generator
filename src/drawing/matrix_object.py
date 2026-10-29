@@ -30,12 +30,12 @@ class MatrixObject:
         return MatrixObject(w, h, matrix)
 
 
-    def __init__(self, w, h, data: Optional[Matrix] = None) -> None:
+    def __init__(self, w: int, h: int, data: Optional[Matrix] = None) -> None:
         h = w if h is None else h
         self.data: Matrix = data if data is not None else [[[None] * w] * h]
 
 
-    def paint(self, matrix: Matrix, x=0, y=0) -> MatrixObject:
+    def paint(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
         """
         paints the matrix on top of the current one
         
@@ -46,11 +46,20 @@ class MatrixObject:
         """
         clone: MatrixObject = deepcopy(self)
         for i, row in enumerate(matrix):
-            clone.data[i + y][x: x + len(row)] = row
+            if i + y >= len(clone.data):
+                break
+            elif i + y < 0:
+                continue
+            for j in range(len(row)):
+                if j + x >= len(clone.data[i + y]):
+                    break
+                elif j + x < 0:
+                    continue
+                clone.data[i + y][x + j] = row[j]
         return clone
     
 
-    def shadow(self, matrix: Matrix, x=0, y=0) -> MatrixObject:
+    def shadow(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
         """
         paints the matrix on top of the current one, but only where the current one is None
 
@@ -61,7 +70,15 @@ class MatrixObject:
         """
         clone: MatrixObject = deepcopy(self)
         for i, row in enumerate(matrix):
+            if i + y >= len(clone.data):
+                break
+            elif i + y < 0:
+                continue
             for j in range(len(row)):
+                if j + x >= len(clone.data[i + y]):
+                    break
+                elif j + x < 0:
+                    continue
                 if clone.data[i + y][j + x] is not None:
                     clone.data[i + y][j + x] = row[j]
         return clone
