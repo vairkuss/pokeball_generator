@@ -18,7 +18,7 @@ class Backupper:
         :param path: a path to original file
         :param data: original file's data in bytes
         """
-        folder, name: str = os.path.split(path)
+        folder, name = os.path.split(path)
         backup_folder: str = os.path.join(folder, ".backup")
         if not os.path.exists(backup_folder):
             os.mkdir(backup_folder)

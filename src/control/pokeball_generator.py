@@ -1,5 +1,5 @@
 from typing import Optional
-from argparser import Namespace
+from argparse import Namespace
 
 
 class PokeballGenerator:
