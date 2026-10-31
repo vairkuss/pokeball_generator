@@ -19,18 +19,18 @@ class PokeballMatrix(MatrixObject):
         RED: Color = (256, 0, 0)
         BLACK: Color = (0, 0, 0)
 
-        white_circle: Circle = Circle(r, WHITE)
+        base: Circle = Circle(r, WHITE)
 
         red_top: Rect = Rect(d, r, RED)
-        malasian_flag: MatrixObject = white_circle.paint(red_top.data)
+        malasian_flag: MatrixObject = base.paint(red_top.data)
 
-        middle: Rect = Rect(d, d / 7, BLACK)
-        pokeball_from_behind: MatrixObject = malasian_flag.paint(middle.data, 0, r / 7)
+        black_stripe: Rect = Rect(d, d // 7, BLACK)
+        pokeball_from_behind: MatrixObject = malasian_flag.shadow(black_stripe.data, 0, r // 7)
 
-        button_ring: Circle = Circle(d / 4, BLACK)
-        broken_pokeball: MatrixObject = pokeball_from_behind.paint(button_ring.data, r / 4, r / 4)
+        button_ring: Circle = Circle(d // 4, BLACK)
+        broken_pokeball: MatrixObject = pokeball_from_behind.paint(button_ring.data, r, r)
 
-        button: Circle = Circle(d / 3, WHITE)
-        pokeball: MatrixObject = broken_pokeball.paint(button.data, r / 3, r / 3)
+        button: Circle = Circle(d // 3, WHITE)
+        pokeball: MatrixObject = broken_pokeball.paint(button.data, r, r)
 
         self.data = pokeball.data

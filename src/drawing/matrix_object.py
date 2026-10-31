@@ -5,39 +5,42 @@ from src.types import Matrix, Color
 
 class MatrixObject:
     """
-    represents a 2D matrix of colors (RGB tuples),
-    provides methods to manipulate and to convert it
-    to and from binary data to use in bitmaps
+    creates a matrix of rgb tuples, converts it
+    to and from binary data for the bitmaps
     """
 
     @staticmethod
     def from_bytes(w: int, h: int, padding: int, data: bytes) -> MatrixObject:
         """
-        creates MatrixObject from the raw binary bitmap data
+        creates new MatrixObject from the raw binary bitmap data
 
         :param w: image width
         :param h: image height
         :param padding: image data padding, calculated in BitmapMeta's constructor
-        :param data: image bytes of file (normally, offset is 54 bytes)
+        :param data: image data in raw bytes
         """
         matrix: Matrix = []
-        offset: int = w * 3 + padding
+        row_length: int = w * 3 + padding
         for row in range(h):
             row_entries: list[Optional[Color]] = []
             for col in range(w):
-                rgb: Color = tuple(value for value in data[row * offset : row * offset + 3])
-                row_entries.append(rgb)
+                offset: int = row * row_length + col * 3
+                r, g, b = data[offset : offset + 3]
+                color: Color = (r, g, b)
+                row_entries.append(color)
             matrix.append(row_entries)
         return MatrixObject(w, h, matrix)
 
 
-    def __init__(self, w: int, h: int, data: Optional[Matrix] = None) -> None:
+    def __init__(self, w: int, h: int, matrix: Optional[Matrix] = None) -> None:
         """
+        saves provided matrix in own attributes or generates new, filled with None
+
         :param w: matrix width
         :param h: matrix height
         :param data: optional existing matrix data
         """
-        self.data: Matrix = data if data is not None else [[[None] * w] * h]
+        self.data: Matrix = matrix if matrix is not None else [[None for _ in range(w)] * h]
 
 
     def paint(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
@@ -95,6 +98,6 @@ class MatrixObject:
         """
         data: bytes = b''
         for row in self.data:
-            string: bytes = b''.join(bytes(color) for color in row) + b'\x00' * padding
-            data = string + data
+            string: bytes = b''.join(b'\x00' * 3 if color is None else bytes(color) for color in row)
+            data = string + b'\x00' * padding + data
         return bytes(data)

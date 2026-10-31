@@ -4,12 +4,15 @@ from src.types import Color
 
 class Rect(MatrixObject):
     """
-    represents a 2D matrix of colors (RGB tuples) in the shape of a rectangle,
-    provides methods to manipulate and to convert it
-    to and from binary data to use in bitmaps
+    creates a matrix filled with the rgb tuples of chosen color
     """
 
     def __init__(self, w: int, h: int, color: Color) -> None:
+        """
+        :param w: width of the rectangle
+        :param h: height of the rectangle
+        :param color: color of the rectangle
+        """
         super().__init__(w, h)
         for row in range(h):
             for col in range(w):
