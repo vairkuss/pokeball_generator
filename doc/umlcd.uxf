@@ -37,11 +37,10 @@ _+ from_bytes(w, h, padding, data: bytes)_
 + shadow(matrix: Matrix, x=0, y=0): MatrixObject
 + to_bytes(padding): bytes
 bg=cyan</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>54</x><y>144</y><w>63</w><h>171</h></coordinates><panel_attributes>lt=&lt;&lt;.
-bg=cyan</panel_attributes><additional_attributes>10;170;10;10;50;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>396</x><y>0</y><w>270</w><h>90</h></coordinates><panel_attributes>
+bg=cyan</panel_attributes><additional_attributes>10;170;10;10;50;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>396</x><y>0</y><w>270</w><h>81</h></coordinates><panel_attributes>
     no type specified &lt;=&gt; int
     type Color = Optional[tuple[int, int, int]]
     type Matrix = list[list[Optional[Color]]]
-    type Options = dict[str, str | int | bool | None]
 bg=yellow</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>252</y><w>27</w><h>63</h></coordinates><panel_attributes>lt=&lt;&lt;.
 bg=cyan</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>576</x><y>126</y><w>180</w><h>63</h></coordinates><panel_attributes>Backupper
 --

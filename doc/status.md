@@ -2,7 +2,7 @@
 |--:|:--|:-:|
 | 0 | planning | ready |
 | 1 | simple forms | ready |
-| 2 | matrixes merging | ready |
+| 2 | matrix merging | ready |
 | 3 | bitmap data reading | ready |
 | 4 | bitmap data generation | ready |
 | 5 | working with file system | ready |

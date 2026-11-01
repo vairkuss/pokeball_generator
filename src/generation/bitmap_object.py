@@ -1,4 +1,5 @@
-from src import MatrixObject, Options
+from src import Options, MatrixObject
+from src.types import Matrix
 
 
 class BitmapObject:
@@ -8,17 +9,15 @@ class BitmapObject:
 
     def __init__(self, options: Options) -> None:
         """
-        reads from provided data or generates new from options
+        generates new BitmapObject from options
 
         :param options: the options for the bitmap
-        :param data: optinally provided raw binary data from the bitmap file
         """
-        image_offset: int = 54
-        self.__w: int = options.w
-        self.__h: int = options.h
+        self.__w: int = options.meta.w
+        self.__h: int = options.meta.h
         self.__padding: int = (4 - ((self.__w * 3) % 4)) % 4
         self.__matrix: MatrixObject = MatrixObject(self.__w, self.__h)
-        #TODO: umlcd & save previous header
+        self.__template: bytearray = options.meta.to_bytearray()
 
 
     @property
@@ -26,20 +25,20 @@ class BitmapObject:
         """
         :returns: bitmap data assembled in raw bytes
         """
-        return self.__convert_meta() + self.__matrix.to_bytes(self.__padding)
+        self.__template[34:38] = (len(self.data) - 54).to_bytes(4, "little")
+        return bytes(self.__template) + self.__matrix.to_bytes(self.__padding)
 
 
-    def write(self, data: bytes, x: int = 0, y: int = 0) -> None:
+    def write(self, matrix: Matrix, x: int = 0, y: int = 0) -> None:
         """
-        parses MatrixObject from the given bytes and overwrites
-        own matrix with its data using MatrixObject.paint() method
+        overwrites own matrix with the new data
+        using MatrixObject.paint() method
 
-        :param data: bytes to parse
+        :param matrix: the matrix data to overwrite with
         :param x: x-coordinate of the top-left corner of the area to overwrite
         :param y: y-coordinate of the top-left corner of the area to overwrite
         """
-        parsed_matrix: MatrixObject = MatrixObject.from_bytes(self.__w, self.__h, self.__padding, data)
-        self.__matrix.paint(parsed_matrix.data, x, y)
+        self.__matrix.paint(matrix, x, y)
 
 
     def __convert_meta(self) -> bytes:
