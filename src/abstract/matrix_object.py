@@ -10,16 +10,16 @@ class MatrixObject:
     """
 
     @staticmethod
-    def from_bytes(w: int, h: int, padding: int, data: bytes) -> MatrixObject:
+    def from_bytes(w: int, h: int, data: bytes) -> MatrixObject:
         """
         creates new MatrixObject from the raw binary bitmap data
 
         :param w: image width
         :param h: image height
-        :param padding: image data padding, calculated in BitmapMeta's constructor
         :param data: image data in raw bytes
         """
         matrix: Matrix = []
+        padding: int = (4 - ((w * 3) % 4)) % 4
         row_length: int = w * 3 + padding
         for row in range(h):
             row_entries: list[Optional[Color]] = []

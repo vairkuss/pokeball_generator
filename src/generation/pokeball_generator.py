@@ -11,18 +11,15 @@ class PokeballGenerator:
     """
 
     @staticmethod
-    def generate(options: Options, data: Optional[bytes] = None) -> bytes:
+    def construct(r: int, x: int, y: int) -> MatrixObject:
         """
-        generates a bitmap with a single user-defined pokeball on it
-        or edits an existing bitmap data, if provided
+        generates a MatrixObject with a single user-defined pokeball on it
         
-        :param options: options for the bitmap
-        :param data: existing bitmap data
-        :returns: new bitmap data with a defined pokeball on it
+        :param r: radius of the pokeball
+        :param x: x-coordinate of the pokeball
+        :param y: y-coordinate of the pokeball
+        :returns: new pokeball matrix
         """
-        canvas: BitmapObject = BitmapObject(options)
-
-        r = options.r
         d = r * 2
 
         WHITE: Color = (256, 256, 256)
@@ -43,33 +40,32 @@ class PokeballGenerator:
         button: Circle = Circle(d // 3, WHITE)
         pokeball: MatrixObject = broken_pokeball.paint(button.data, r, r)
 
-        canvas.write(pokeball.data, options.x, options.y)
-        return canvas.data
-
-
+        return pokeball
+    
 
     @staticmethod
-    def pokerush(options: Options, data: Optional[bytes] = None) -> bytes:
+    def generate(options: Options, data: Optional[bytes] = None) -> bytes:
         """
-        generates a bitmap with 100 random pokeballs on it
-        or edits an existing bitmap data, if provided
-
+        generates a bitmap with a single user-defined pokeball on it
+        or edits an existing bitmap data, if provided; if pokerush is
+        set, generates 100 random pokeballs on the bitmap instead
+        
         :param options: options for the bitmap
         :param data: existing bitmap data
-        :returns: new bitmap data with 100 random pokeballs on it
+        :returns: new bitmap data with a defined pokeball on it
         """
-        if data is not None:
-            w: int = int.from_bytes(data[18:22], byteorder="little")
-            h: int = int.from_bytes(data[22:26], byteorder="little")
-        else:
-            w: int = options.meta.w
-            h: int = options.meta.h
-        max_r: int = int(max(w, h) / 2.5)
-
         canvas: BitmapObject = BitmapObject(options)
-        
-        for i in range(100):
-            x: int = random.randint(0, w)
-            y: int = random.randint(0, h)
-            r: int = random.randint(7, max_r)
+        if data is not None:
+            image: MatrixObject = MatrixObject.from_bytes(options.meta.w, options.meta.h, data)
+            canvas.write(image.data)
+        if options.pokerush:
+            for _ in range(100):
+                x: int = random.randint(0, options.meta.w)
+                y: int = random.randint(0, options.meta.h)
+                r: int = random.randint(4, int(max(options.meta.w, options.meta.h) / 2.5))
+                pokeball: MatrixObject = PokeballGenerator.construct(r, x, y)
+                canvas.write(pokeball.data, x, y)
+        else:
+            pokeball: MatrixObject = PokeballGenerator.construct(options.r, options.x, options.y)
+            canvas.write(pokeball.data, options.x, options.y)
         return canvas.data
