@@ -1,5 +1,6 @@
-from src import Options, MatrixObject
-from src.types import Matrix
+from ..control import Options
+from ..abstract import MatrixObject
+from ..types import Matrix
 
 
 class BitmapObject:
@@ -25,8 +26,9 @@ class BitmapObject:
         """
         :returns: bitmap data assembled in raw bytes
         """
-        self.__template[34:38] = (len(self.data) - 54).to_bytes(4, "little")
-        return bytes(self.__template) + self.__matrix.to_bytes(self.__padding)
+        data: bytearray = self.__template + self.__matrix.to_bytes(self.__padding)
+        data[34:38] = (len(data) - 54).to_bytes(4, "little")
+        return bytes(data) 
 
 
     def write(self, matrix: Matrix, x: int = 0, y: int = 0) -> None:

@@ -1,7 +1,9 @@
 import random
 from typing import Optional
-from src import Options, BitmapObject, MatrixObject, Rect, Circle
-from src.types import Color
+from .bitmap_object import BitmapObject
+from ..control import Options
+from ..abstract import MatrixObject, Rect, Circle
+from ..types import Color
 
 
 class PokeballGenerator:

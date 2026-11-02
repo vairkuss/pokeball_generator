@@ -40,7 +40,7 @@ class MatrixObject:
         :param h: matrix height
         :param data: optional existing matrix data
         """
-        self.data: Matrix = matrix if matrix is not None else [[None for _ in range(w)] * h]
+        self.data: Matrix = matrix if matrix is not None else [[None for _ in range(w)] for _ in range(h)]
 
 
     def paint(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
@@ -98,6 +98,6 @@ class MatrixObject:
         """
         data: bytes = b''
         for row in self.data:
-            string: bytes = b''.join(b'\x00' * 3 if color is None else bytes(color) for color in row)
+            string: bytes = b''.join((b'\x00' * 3 if color is None else bytes(color)) for color in row)
             data = string + b'\x00' * padding + data
         return bytes(data)

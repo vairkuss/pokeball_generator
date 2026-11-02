@@ -1,5 +1,5 @@
-from src import MatrixObject
-from src.types import Color
+from .matrix_object import MatrixObject
+from ..types import Color
 
 
 class Rect(MatrixObject):
