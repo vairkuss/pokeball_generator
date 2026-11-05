@@ -3,24 +3,30 @@ from typing import Optional
 
 class Meta:
     """
-    stores the metadata of the bitmap file
+    stores the metadata of the bitmap file in attributes
+    and converts it back to bytes
     """
 
-    def __init__(self, data: Optional[bytes]) -> None:
+    def __init__(self, w: int, h: Optional[int], data: Optional[bytes]) -> None:
         """
-        parses the metadata from the given bitmap data or sets the defaults
+        parses the metadata from the given bitmap data or generates new
 
-        :param data: the raw bytes of the bitmap file
+        :param w: bitmap width
+        :param h: bitmap height
+        :param data: raw bitmap data
+        :raises: ValueError if data exists and isn't a bitmap
         """
         if data is None:
             self.image_offset: int = 54
-            self.w: int = 100
-            self.h: int = 100
+            self.w: int = w
+            self.h: int = w if h is None else h
             self.__template: bytearray = bytearray(b'BM' + b'\x00' * 52)
             self.__template[10:14] = self.image_offset.to_bytes(4, "little")
             self.__template[14:18] = (self.image_offset - 14).to_bytes(4, "little")
             self.__template[26:28] = b'\x01\x00'
             self.__template[28:30] = b'\x18\x00'
+        elif len(data) < 54 or data[0:2] != b'BM':
+            raise ValueError("> the provided file exists and isn't a bitmap");
         else:
             self.image_offset: int = int.from_bytes(data[10:14], byteorder="little")
             self.w: int = int.from_bytes(data[18:22], byteorder="little")
@@ -30,7 +36,7 @@ class Meta:
 
     def to_bytearray(self) -> bytearray:
         """
-        :returns: the raw bytes of the bitmap meta block
+        :returns: raw bytes of the bitmap meta block
         """
         meta: bytearray = self.__template
         meta[10:14] = self.image_offset.to_bytes(4, "little")

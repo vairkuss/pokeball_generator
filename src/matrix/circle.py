@@ -17,6 +17,5 @@ class Circle(MatrixObject):
         super().__init__(d, d)
         for y in range(d):
             for x in range(d):
-                c = x ** 2 + y ** 2
-                if c <= r:
+                if r ** 2 > (x - r) ** 2 + (y - r) ** 2:
                     self.data[y][x] = color

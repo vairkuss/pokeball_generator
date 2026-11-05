@@ -25,7 +25,7 @@ class MatrixObject:
             row_entries: list[Optional[Color]] = []
             for col in range(w):
                 offset: int = row * row_length + col * 3
-                r, g, b = data[offset : offset + 3]
+                b, r, g = (byte for byte in data[offset : offset + 3])
                 color: Color = (r, g, b)
                 row_entries.append(color)
             matrix.append(row_entries)
@@ -63,7 +63,8 @@ class MatrixObject:
                     break
                 elif j + x < 0:
                     continue
-                clone.data[i + y][x + j] = row[j]
+                if row[j] is not None:
+                    clone.data[i + y][x + j] = row[j]
         return clone
     
 
@@ -98,6 +99,6 @@ class MatrixObject:
         """
         data: bytes = b''
         for row in self.data:
-            string: bytes = b''.join((b'\x00' * 3 if color is None else bytes(color)) for color in row)
+            string: bytes = b''.join((b'\x00' * 3 if color is None else bytes(color[::-1])) for color in row)
             data = string + b'\x00' * padding + data
         return bytes(data)

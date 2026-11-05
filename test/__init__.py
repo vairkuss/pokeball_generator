@@ -1,1 +1,1 @@
-from . import backupper_test
+from . import matrix_object_test, backupper_test
