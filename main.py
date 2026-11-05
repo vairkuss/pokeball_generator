@@ -33,13 +33,6 @@ if __name__ == "__main__":
 
     # parse arguments
     options: Options = parse_args()
-    print({
-        "w": options.meta.w,
-        "h": options.meta.h,
-        "r": options.r,
-        "x": options.x,
-        "y": options.y
-    })
 
     # prove that user really wants to name the file as "pokerush"
     if options.file == "pokerush":

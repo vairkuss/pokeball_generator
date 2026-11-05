@@ -12,7 +12,7 @@ class MatrixObject:
     @staticmethod
     def from_bytes(w: int, h: int, data: bytes) -> MatrixObject:
         """
-        creates new MatrixObject from the raw binary bitmap data, converts brg to rgb
+        creates new MatrixObject from the raw binary bitmap data, converts bgr to rgb
 
         :param w: image width
         :param h: image height
@@ -25,10 +25,10 @@ class MatrixObject:
             row_entries: list[Optional[Color]] = []
             for col in range(w):
                 offset: int = row * row_length + col * 3
-                b, r, g = (byte for byte in data[offset : offset + 3])
+                b, g, r = (byte for byte in data[offset : offset + 3])
                 color: Color = (r, g, b)
                 row_entries.append(color)
-            matrix.append(row_entries)
+            matrix[0:0] = [row_entries]
         return MatrixObject(w, h, matrix)
 
 
@@ -95,8 +95,8 @@ class MatrixObject:
 
     def to_bytes(self, padding: int) -> bytes:
         """
-        converts MatrixObject matrix to bitmap image data,
-        rgb is converted to brg, image is written in bottom-up,
+        converts MatrixObject matrix to bitmap image data:
+        rgb is converted to bgr, image is assembled in bottom-up,
         None-cells are interpreted as the color black
         """
         data: bytes = b''

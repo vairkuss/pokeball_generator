@@ -1,0 +1,11 @@
+# pycache
+*/__pycache__/*
+*.pyc
+
+# testing leftovers
+.backup/
+pokéball.bmp
+
+# editors
+.vscode/
+.idle/
