@@ -7,14 +7,14 @@ class Meta:
     and converts it back to bytes
     """
 
-    def __init__(self, w: int, h: Optional[int], data: Optional[bytes]) -> None:
+    def __init__(self, w: Optional[int], h: Optional[int], data: Optional[bytes]) -> None:
         """
         parses the metadata from the given bitmap data or generates new
 
         :param w: bitmap width
         :param h: bitmap height
         :param data: raw bitmap data
-        :raises: ValueError if data exists and isn't a bitmap
+        :raises: SystemExit if file exists and isn't a bitmap
         """
         if data is None:
             self.image_offset: int = 54
@@ -26,7 +26,7 @@ class Meta:
             self.__template[26:28] = b'\x01\x00'
             self.__template[28:30] = b'\x18\x00'
         elif len(data) < 54 or data[0:2] != b'BM':
-            raise ValueError("> the provided file exists and isn't a bitmap")
+            raise SystemExit("> the provided file exists and isn't a bitmap")
         else:
             self.image_offset: int = int.from_bytes(data[10:14], byteorder="little")
             self.w: int = int.from_bytes(data[18:22], byteorder="little")
