@@ -23,7 +23,7 @@ def parse_args() -> Options:
     argparser.add_argument("-x", help="the x-coordinate of the pokéball in pixels", type=int)
     argparser.add_argument("-y", help="the y-coordinate of the pokéball in pixels", type=int)
     argparser.add_argument("-r", help="the radius of the pokéball", type=int)
-    argparser.add_argument("pokerush", help="generate 100 random pokéballs", nargs="?", choices=["pokerush"])
+    argparser.add_argument("pokerush", help="generate 10 to 100 random pokéballs", nargs="?", choices=["pokerush"])
     argparser.add_argument("--help", help="show this message", action="help")
 
     return Options(argparser.parse_args())
