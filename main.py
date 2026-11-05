@@ -18,7 +18,7 @@ def parse_args() -> Options:
 
     argparser: ArgumentParser = ArgumentParser(description, add_help=False)
     argparser.add_argument("file", help="the path to the file", nargs="?", default=None)
-    argparser.add_argument("-w", help="the width of the generated bitmap", type=int, default=20)
+    argparser.add_argument("-w", help="the width of the generated bitmap", type=int)
     argparser.add_argument("-h", help="the height of the generated bitmap", type=int)
     argparser.add_argument("-x", help="the x-coordinate of the pokéball in pixels", type=int)
     argparser.add_argument("-y", help="the y-coordinate of the pokéball in pixels", type=int)

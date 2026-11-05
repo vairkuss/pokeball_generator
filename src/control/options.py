@@ -14,7 +14,7 @@ class Options:
         stores provided arguments, creates Meta instance from the provided file data, sets the defaults
 
         :param args: the return value of argparse.ArgumentParser.parse_args()
-        :raises: ValueError if -w or -h are lesser than 20
+        :raises: SystemExit if -w or -h are lesser than 20
         """
         self.file: str = "" if args.file is None else args.file
         if self.file and not self.file.endswith(".bmp"):
@@ -26,14 +26,15 @@ class Options:
         self.meta: Meta = Meta(args.w, args.h, self.data)
 
         bad_args: list[tuple[str, int]] = []
-        for i, arg in enumerate((self.meta.w, self.meta.h)):
-            if arg < 20:
-                bad_args.append(("wh"[i], arg))
+        if self.meta.w < 20:
+            bad_args.append(("w", self.meta.w))
+        if args.h is not None and self.meta.h < 20:
+            bad_args.append(("h", self.meta.h))
         if bad_args:
-            msg: str ="> should be 20 or greater:\n"
+            msg: str = "> should be 20 or greater:\n"
             for dimension, value in bad_args:
                 msg += f">\t-{dimension}: {value}\n"
-            raise ValueError(msg)
+            raise SystemExit(msg)
         
         self.r: int = int(min(self.meta.w, self.meta.h) // 2) if args.r is None else args.r
         self.x: int = self.meta.w // 2 if args.x is None else args.x

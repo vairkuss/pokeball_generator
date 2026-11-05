@@ -11,7 +11,8 @@
 | pokéball_generator | pokerush is activated                      | random pokéballs               | python main.py a pokerush     | ok     |
 |               meta | program initialisation                     | parses correct data            | python main.py                | ok     |
 |            options | program initialisation                     | defaults are set correctly     | python main.py                | ok     |
-|            options | user provides -w or -h lesser than 20      | error raised                   | python main.py -w -1          | ok     |
+|            options | provided file exists and is not a bitmap   | exception raised               | python main.py                | ok     |
+|            options | user provides -w or -h lesser than 20      | exception raised               | python main.py -w -1          | ok     |
 |          backupper | the file exists                            | backs up data                  | python main.py (zweimal)      | ok     |
 |          backupper | the backup exists                          | overwrites old backup          | python main.py (dreimal)      | ok     |
 |               main | no arguments                               | uses default name for new file | python main.py                | ok     |

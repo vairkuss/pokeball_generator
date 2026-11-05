@@ -54,7 +54,6 @@ class PokeballGenerator:
         set, generates 10 to 100 random pokéballs on the bitmap instead
         
         :param options: options for the bitmap
-        :param data: existing bitmap data
         :returns: new bitmap data with a defined pokéball on it
         """
         canvas: BitmapObject = BitmapObject(options)

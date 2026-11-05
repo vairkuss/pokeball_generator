@@ -18,15 +18,15 @@ class Meta:
         """
         if data is None:
             self.image_offset: int = 54
-            self.w: int = w
-            self.h: int = w if h is None else h
+            self.w: int = w if w is not None else h if h is not None else 20
+            self.h: int = h if h is not None else w if w is not None else 20
             self.__template: bytearray = bytearray(b'BM' + b'\x00' * 52)
             self.__template[10:14] = self.image_offset.to_bytes(4, "little")
             self.__template[14:18] = (self.image_offset - 14).to_bytes(4, "little")
             self.__template[26:28] = b'\x01\x00'
             self.__template[28:30] = b'\x18\x00'
         elif len(data) < 54 or data[0:2] != b'BM':
-            raise ValueError("> the provided file exists and isn't a bitmap");
+            raise ValueError("> the provided file exists and isn't a bitmap")
         else:
             self.image_offset: int = int.from_bytes(data[10:14], byteorder="little")
             self.w: int = int.from_bytes(data[18:22], byteorder="little")
