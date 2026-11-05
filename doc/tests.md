@@ -1,3 +1,5 @@
+# tested with Python 3.14
+
 |            SUBJECT |                     CASE                   |           EXPECTATION          |           TEST DATA           | RESULT |
 |-------------------:|:-------------------------------------------|:-------------------------------|:------------------------------|:-------|
 |      matrix_object | created from bytes and then converted back | bytes matching                 | "empty" bitmap image data     | ok     |
