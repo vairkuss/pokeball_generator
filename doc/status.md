@@ -6,7 +6,7 @@
 |  3 | bitmap data reading      | ready  |
 |  4 | bitmap data generation   | ready  |
 |  5 | working with file system | ready  |
-|  6 | working with file system | ready  |
+|  6 | parsing arguments        | ready  |
 |  7 | testing and debugging    | ready  |
 |  8 | final review             | ready  |
 |  9 | documentation            | ready  |

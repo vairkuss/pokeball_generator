@@ -3,7 +3,7 @@
 |      matrix_object | created from bytes and then converted back | bytes matching            | "empty" bitmap image data |             | ok     |
 |      matrix_object | set dimensions in constructor              | correct matrix dimensions | w = 1, h = 1              |             | ok     |
 |               rect | shadows correctly                          |                           | pokéball generation       |             | ok     |
-|             circle |                               | correct shape | pokéball generation       |             | ok     |
+|             circle | pokéball generation                        | correct shape             |             | ok     |
 |      bitmap_object | correct conversion                         |                           |                           |             | ok     |
 | pokéball_generator | single pokéball                            |                           |                           |             | ok     |
 | pokéball_generator | pokerush                                   |                           |                           |             | ok     |

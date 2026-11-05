@@ -48,8 +48,6 @@ if __name__ == "__main__":
             print("> no file name provided, using the default")
             options.file = "pokéball.bmp"
         prefix = "cre"
-    if not options.file.endswith(".bmp"):
-        options.file += ".bmp"
     print(f'> {prefix}ating "{os.path.abspath(options.file)}"')
 
     # read and backup original file if existed
