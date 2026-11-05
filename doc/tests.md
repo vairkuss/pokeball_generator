@@ -16,5 +16,4 @@
 |               main | user defines -x and -y as 0, 0             | pokéball is at the top-left    | python main.py -x 0 -y 0      | ok     |
 |               main | user defines -x and -y same as -w and -h   | pokéball is at the botom-right | python main.py -x 21 -y 21    | ok     |
 |               main | pokéball generated over an existing bitmap | original image is preserved    | python main.py jolteon        | ok     |
-|               main | user sets -w and -h lesser than bitmap     | new bitmap is cropped          | python main.py jolteon -w 200 | ok     |
-|               main | user sets -w and -h greater than bitmap    | pokéball is at the botom-right | python main.py -x 21 -y 21    | ok     |
+|               main | user sets -w and -h when overwriting file  | the arguments are ignored      | python main.py jolteon -w 200 | ok     |

@@ -67,11 +67,11 @@ class PokeballGenerator:
                 y: int = random.randint(0, options.meta.h)
                 r: int = random.randint(10, min(options.meta.w, options.meta.h) // 2)
                 pokeball: MatrixObject = PokeballGenerator.__render_pokeball(r)
-                canvas.write(pokeball.data, x + r, y + r)
+                canvas.write(pokeball.data, x - r, y - r)
         else:
             r: int = options.r
-            x: int = options.x + r
-            y: int = options.y + r
+            x: int = options.x - r
+            y: int = options.y - r
             pokeball: MatrixObject = PokeballGenerator.__render_pokeball(options.r)
             canvas.write(pokeball.data, x, y)
 
