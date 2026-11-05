@@ -24,14 +24,14 @@ class Options:
         self.meta: Meta = Meta(args.w, args.h, self.data)
 
         bad_args: list[tuple[str, int]] = []
-        for i, arg in enumerate((args.w, args.h)):
+        for i, arg in enumerate((self.meta.w, self.meta.h)):
             if arg < 20:
                 bad_args.append(("wh"[i], arg))
         if bad_args:
-            print("> should be 20 or greater:")
+            msg: str ="> should be 20 or greater:\n"
             for dimension, value in bad_args:
-                print(f">\t-{dimension}: {value}")
-            raise SystemExit
+                msg += f">\t-{dimension}: {value}\n"
+            raise ValueError(msg)
         
         self.r: int = int(min(self.meta.w, self.meta.h) // 2) if args.r is None else args.r
         self.x: int = (self.meta.w // 2 if args.x is None else args.x) - self.meta.w + self.r

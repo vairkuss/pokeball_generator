@@ -23,7 +23,7 @@ print("MatrixObject:")
 
 matrix: MatrixObject = MatrixObject(1, 1)
 if matrix.data != [[None]]:
-    raise SystemExit("> constructor failed")
+    raise SystemExit("> constructor failed to construct an empty 1x1 matrix")
 
 test_conversion(1, 1)
 test_conversion(825, 714)

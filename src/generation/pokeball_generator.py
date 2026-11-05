@@ -1,5 +1,4 @@
 import random
-from typing import Optional
 from .bitmap_object import BitmapObject
 from ..control import Options
 from ..matrix import MatrixObject, Rect, Circle
@@ -48,7 +47,7 @@ class PokeballGenerator:
     
 
     @staticmethod
-    def overwrite_data(options: Options, data: Optional[bytes] = None) -> bytes:
+    def overwrite_data(options: Options) -> bytes:
         """
         generates a bitmap with a single user-defined pokéball on it
         or edits an existing bitmap data, if provided; if pokerush is
@@ -59,8 +58,8 @@ class PokeballGenerator:
         :returns: new bitmap data with a defined pokéball on it
         """
         canvas: BitmapObject = BitmapObject(options)
-        if data is not None:
-            image: MatrixObject = MatrixObject.from_bytes(options.meta.w, options.meta.h, data)
+        if options.data is not None:
+            image: MatrixObject = MatrixObject.from_bytes(options.meta.w, options.meta.h, options.data[options.meta.image_offset:])
             canvas.write(image.data)
         if options.pokerush:
             for _ in range(random.randint(10, 100)):

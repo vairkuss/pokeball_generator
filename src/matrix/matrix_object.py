@@ -12,7 +12,7 @@ class MatrixObject:
     @staticmethod
     def from_bytes(w: int, h: int, data: bytes) -> MatrixObject:
         """
-        creates new MatrixObject from the raw binary bitmap data
+        creates new MatrixObject from the raw binary bitmap data, converts brg to rgb
 
         :param w: image width
         :param h: image height
@@ -45,12 +45,12 @@ class MatrixObject:
 
     def paint(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
         """
-        paints the matrix on top of the current one
+        paints the foreigh matrix on top of the current one, cells with None are skipped
         
         :param matrix: a matrix to paint on top of the current one
         :param x: x-coordinate of the top-left corner of the area to paint
         :param y: y-coordinate of the top-left corner of the area to paint
-        :returns: a shallow copy of the current MatrixObject with the painted data
+        :returns: deep copy of the current MatrixObject with the painted data
         """
         clone: MatrixObject = deepcopy(self)
         for i, row in enumerate(matrix):
@@ -70,12 +70,12 @@ class MatrixObject:
 
     def shadow(self, matrix: Matrix, x: int = 0, y: int = 0) -> MatrixObject:
         """
-        paints the matrix on top of the current one, where there's a color
+        paints the foreign matrix on top of the non-None cells of the current one
 
         :param matrix: a matrix to shadow on top of the current one
         :param x: x-coordinate of the top-left corner of the area to shadow
         :param y: y-coordinate of the top-left corner of the area to shadow
-        :returns: a shallow copy of the current MatrixObject with the shadowed data
+        :returns: deep copy of the current MatrixObject with the shadowed data
         """
         clone: MatrixObject = deepcopy(self)
         for i, row in enumerate(matrix):
@@ -95,7 +95,9 @@ class MatrixObject:
 
     def to_bytes(self, padding: int) -> bytes:
         """
-        converts MatrixObject matrix to bitmap image data structure
+        converts MatrixObject matrix to bitmap image data,
+        rgb is converted to brg, image is written in bottom-up,
+        None-cells are interpreted as the color black
         """
         data: bytes = b''
         for row in self.data:
