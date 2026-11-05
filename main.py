@@ -35,7 +35,7 @@ if __name__ == "__main__":
     options: Options = parse_args()
 
     # prove that user really wants to name the file as "pokerush"
-    if options.file == "pokerush":
+    if options.file == "pokerush.bmp":
         name_pokerush: str = input('> do You really want to name the file as "pokerush"? [y/N] ')
         if name_pokerush.lower() != "y":
             options.file = input("> please, write new file name or path\n> ")
