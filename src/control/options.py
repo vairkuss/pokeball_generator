@@ -36,7 +36,7 @@ class Options:
             raise ValueError(msg)
         
         self.r: int = int(min(self.meta.w, self.meta.h) // 2) if args.r is None else args.r
-        self.x: int = self.meta.w // 2 if args.x is None else self.meta.w - args.x
-        self.y: int = self.meta.h // 2 if args.y is None else self.meta.h - args.y
+        self.x: int = self.meta.w // 2 if args.x is None else args.x
+        self.y: int = self.meta.h // 2 if args.y is None else args.y
         self.pokerush: bool = args.pokerush is not None
         
